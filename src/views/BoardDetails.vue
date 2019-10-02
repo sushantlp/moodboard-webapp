@@ -15,7 +15,7 @@
         <button @click="addItem" class="button">Add item</button>
       </div>
       <div class="items">
-        <div class="item" v-for="item in board.items" :key="item.id">
+        <div class="item" v-for="item in items" :key="item.id">
           <a :href="item.url" target="_blank">
             <div class="image-container">
               <img :src="item.image" :alt="item.title" />
@@ -42,40 +42,22 @@ import faker from "faker";
 export default {
   props: ["boardId"],
   name: "BoardDetails",
-  data() {
-    return {
-      board: ""
-    };
+  computed: {
+    board() {
+      return this.$store.state.currentBoard;
+    },
+    items() {
+      return this.$store.state.currentBoardItems;
+    }
   },
   created() {
-    const items = [];
-
-    for (let index = 0; index < 10; index++) {
-      const url = faker.internet.url();
-      const item = {
-        id: faker.random.uuid(),
-        title: faker.lorem.words(),
-        description: faker.lorem.sentence(),
-        image: faker.random.image(),
-        url: url,
-        hostname: new URL(url).host
-      };
-
-      items.push(item);
-    }
-
-    this.board = {
-      id: faker.random.uuid(),
-      name: faker.lorem.words(),
-      description: faker.lorem.sentences(),
-      items
-    };
+    this.$store.dispatch("displayBoardDetails", this.boardId);
   },
   methods: {
-    deleteBoard() {
-      if(confirm("Are you sure")) {
-        // TODO: Delete from db
-        this.$router.back()
+    async deleteBoard() {
+      if (confirm("Are you sure")) {
+        await this.$store.dispatch("deleteBoard", this.boardId);
+        this.$router.back();
       }
     },
     editBoard() {
@@ -87,20 +69,21 @@ export default {
       }
 
       const update = { name, description };
-      Object.assign(this.board, update);
+      this.$store.dispatch("updateBoard", {
+        boardId: this.boardId,
+        update
+      });
     },
     deleteItem(item) {
       if (confirm("Are you sure ?")) {
-        const index = this.board.items.findIndex(it => it.id == item.id);
-        if (index != -1) {
-          this.board.items.splice(index, 1);
-        }
+        this.$store.dispatch("deleteItem", item.id);
       }
     },
     addItem() {
       try {
         const url = prompt("URL");
         const item = {
+          boardId: this.boardId,
           id: faker.random.uuid(),
           title: faker.lorem.words(),
           description: faker.lorem.sentence(),
@@ -108,7 +91,7 @@ export default {
           url: url,
           hostname: new URL(url).host
         };
-        this.board.items.unshift(item);
+        this.$store.dispatch("createItem", item);
       } catch (error) {
         alert(error);
       }

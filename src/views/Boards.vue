@@ -5,7 +5,7 @@
         <div class="page-title-container">
           <h1 class="page-title">Boards</h1>
           <div class="page-actions">
-            <button class="button">New Board</button>
+            <button @click="createBoard()" class="button">New Board</button>
           </div>
         </div>
       </div>
@@ -31,20 +31,29 @@
 import faker from "faker";
 
 export default {
-  data() {
-    return {
-      boards: []
-    };
+  computed: {
+    boards() {
+      return this.$store.state.boards;
+    }
   },
-  created() {
-    for (let index = 0; index < 10; index++) {
-      this.boards.push({
+  methods: {
+    createBoard() {
+      const name = prompt("Name");
+      const description = prompt("Description");
+
+      if (!name) {
+        return;
+      }
+
+      this.$store.dispatch("createBoard", {
         id: faker.random.uuid(),
-        name: faker.lorem.words(),
-        description: faker.lorem.sentences(),
-        items: []
+        name,
+        description
       });
     }
+  },
+  created() {
+    this.$store.dispatch("retrieveAllBoards");
   }
 };
 </script>
@@ -61,7 +70,7 @@ export default {
     border-radius: 4px;
 
     &:hover {
-    background: #fafafa;
+      background: #fafafa;
     }
 
     .info {
