@@ -74,21 +74,9 @@ export default {
       }
     },
     addItem() {
-      try {
-        const url = prompt("URL");
-        const item = {
-          boardId: this.boardId,
-          id: faker.random.uuid(),
-          title: faker.lorem.words(),
-          description: faker.lorem.sentence(),
-          image: faker.random.image(),
-          url: url,
-          hostname: new URL(url).host
-        };
-        this.$store.dispatch("createItem", item);
-      } catch (error) {
-        alert(error);
-      }
+      this.$store.commit("setModal", {
+        component: "new-item"
+      });
     }
   }
 };

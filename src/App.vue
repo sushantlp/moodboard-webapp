@@ -23,9 +23,12 @@
 
 <script>
 import BoardEdtor from "@/components/BoardEditor.vue";
+import NewItem from "@/components/NewItem.vue";
+
 export default {
   components: {
-    "board-editor": BoardEdtor
+    "board-editor": BoardEdtor,
+    "new-item": NewItem
   },
   computed: {
     modal() {
