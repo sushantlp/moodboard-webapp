@@ -20,7 +20,7 @@
       >
         <div class="info">
           <strong class="name">{{board.name}}</strong>
-          <p class="description">{{board.description}}</p>
+          <p class="description">{{board.description || "No description"}}</p>
         </div>
       </router-link>
     </div>
@@ -38,17 +38,8 @@ export default {
   },
   methods: {
     createBoard() {
-      const name = prompt("Name");
-      const description = prompt("Description");
-
-      if (!name) {
-        return;
-      }
-
-      this.$store.dispatch("createBoard", {
-        id: faker.random.uuid(),
-        name,
-        description
+      this.$store.commit("setModal", {
+        component: "board-editor"
       });
     }
   },
@@ -83,6 +74,7 @@ export default {
         display: -webkit-box;
         -webkit-line-clamp: 1;
         -webkit-box-orient: vertical;
+        overflow: hidden;
       }
 
       .description {
@@ -92,6 +84,7 @@ export default {
         overflow: hidden;
         margin: 0;
         margin-bottom: 8px;
+        overflow: hidden;
       }
     }
   }

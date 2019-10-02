@@ -11,8 +11,29 @@
       </div>
     </div>
     <router-view id="content" />
+    <div v-if="modal" id="modal-mask">
+      <div class="modal-container">
+        <button @click="$store.commit('setModal', '')">X</button>
+
+        <component :is="modal.component" v-bind="modal.data"></component>
+      </div>
+    </div>
   </div>
 </template>
+
+<script>
+import BoardEdtor from "@/components/BoardEditor.vue";
+export default {
+  components: {
+    "board-editor": BoardEdtor
+  },
+  computed: {
+    modal() {
+      return this.$store.state.modal;
+    }
+  }
+};
+</script>
 
 <style lang="scss">
 @import url("https://fonts.googleapis.com/css?family=Varela+Round&display=swap");
@@ -47,6 +68,16 @@ html {
 
 * {
   box-sizing: border-box;
+}
+
+.input-wrapper {
+  .input {
+    width: 100%;
+    padding: 8px;
+    outline: none;
+    border: solid 1px #e6e4e4;
+    border-radius: 4px;
+  }
 }
 
 .button {
@@ -130,6 +161,25 @@ html {
 
   #content {
     padding: 20px 64px;
+  }
+
+  #modal-mask {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background: rgba($color: #000000, $alpha: 0.6);
+    top: 0;
+    left: 0;
+
+    .modal-container {
+      background: white;
+      width: 500px;
+      border-radius: 4px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
   }
 }
 </style>

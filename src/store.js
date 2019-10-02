@@ -6,18 +6,19 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    modal: "",
     boards: [],
     items: [],
     currentBoard: "",
     currentBoardItems: ""
   },
   mutations: {
-
+    setModal(state, modal) {
+      state.modal = modal
+    }
   },
   actions: {
     retrieveAllBoards({ state }) {
-
-      state.boards = []
 
       // for (let index = 0; index < 10; index++) {
 

@@ -61,17 +61,11 @@ export default {
       }
     },
     editBoard() {
-      const name = prompt("Name");
-      const description = prompt("Description");
-
-      if (!name) {
-        return;
-      }
-
-      const update = { name, description };
-      this.$store.dispatch("updateBoard", {
-        boardId: this.boardId,
-        update
+      this.$store.commit("setModal", {
+        component: "board-editor",
+        data: {
+          board: this.board
+        }
       });
     },
     deleteItem(item) {
@@ -149,6 +143,7 @@ export default {
             display: -webkit-box;
             -webkit-line-clamp: 1;
             -webkit-box-orient: vertical;
+            overflow: hidden;
           }
           .description {
             margin: 0;
@@ -156,6 +151,7 @@ export default {
             display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
+            overflow: hidden;
           }
           .hostname {
             display: block;
