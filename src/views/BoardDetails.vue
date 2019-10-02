@@ -1,6 +1,6 @@
 <template>
   <div class="BoardDetails">
-    <div class="board">
+    <div v-if="board" class="board">
       <div class="page-info">
         <div class="page-title-container">
           <h1 class="page-title name">{{board.name}}</h1>
@@ -56,7 +56,7 @@ export default {
   methods: {
     async deleteBoard() {
       if (confirm("Are you sure")) {
-        await this.$store.dispatch("deleteBoard", this.boardId);
+        this.$store.dispatch("deleteBoard", this.boardId);
         this.$router.back();
       }
     },
@@ -75,7 +75,8 @@ export default {
     },
     addItem() {
       this.$store.commit("setModal", {
-        component: "new-item"
+        component: "new-item",
+        data: { boardId: this.boardId }
       });
     }
   }

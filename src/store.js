@@ -1,84 +1,53 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import faker from "faker";
+import firebase from 'firebase/app'
+import { vuexfireMutations, firestoreAction } from 'vuexfire'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
     modal: "",
-    boards: [],
+    boards: "",
     items: [],
     currentBoard: "",
-    currentBoardItems: ""
+    currentBoardItems: []
   },
   mutations: {
     setModal(state, modal) {
       state.modal = modal
-    }
+    },
+    ...vuexfireMutations
   },
   actions: {
-    retrieveAllBoards({ state }) {
-
-      // for (let index = 0; index < 10; index++) {
-
-      //   const boardId = faker.random.uuid()
-
-      //   state.boards.push({
-      //     id: boardId,
-      //     name: faker.lorem.words(),
-      //     description: faker.lorem.sentences(),
-      //   });
-
-      //   for (let index = 0; index < 10; index++) {
-      //     const url = faker.internet.url();
-      //     const item = {
-      //       id: faker.random.uuid(),
-      //       title: faker.lorem.words(),
-      //       description: faker.lorem.sentence(),
-      //       image: faker.random.image(),
-      //       url: url,
-      //       hostname: new URL(url).host,
-      //       boardId
-      //     };
-
-      //     state.items.push(item);
-      //   }
-      // }
-    },
-    displayBoardDetails({ state }, boardId) {
-      state.currentBoard = state.boards.find(it => it.id == boardId)
-      state.currentBoardItems = state.items.filter(it => it.boardId == boardId)
-    },
-    createBoard({ state }, board) {
-      state.boards.push(board)
-    },
-    updateBoard({ state }, { boardId, update }) {
-      const board = state.boards.find(it => it.id == boardId)
-
-      if (board) {
-        Object.assign(board, update)
+    retrieveAllBoards: firestoreAction(({ bindFirestoreRef, state }) => {
+      if (state.boards) {
+        return
       }
+      return bindFirestoreRef('boards', firebase.firestore().collection(`users/sandbox/boards`).orderBy('createdAt', 'desc'))
+    }),
+    displayBoardDetails: firestoreAction(async ({ bindFirestoreRef }, boardId) => {
+      await bindFirestoreRef('currentBoard', firebase.firestore().doc(`users/sandbox/boards/${boardId}`))
+      return bindFirestoreRef('currentBoardItems', firebase.firestore().collection(`users/sandbox/items`)
+        .where('boardId', '==', boardId)
+        .orderBy('createdAt', 'desc'))
+    }),
+    createBoard(_, board) {
+      board.createdAt = firebase.firestore.FieldValue.serverTimestamp()
+      firebase.firestore().collection(`users/sandbox/boards`).add(board)
     },
-    deleteBoard({ state }, boardId) {
-      const index = state.boards.findIndex(it => it.id == boardId)
-      if (index != -1) {
-        Vue.delete(state.boards, index)
-        if (state.currentBoard && boardId == state.currentBoard.id) {
-          state.currentBoard = ""
-        }
-      }
+    updateBoard(_, { boardId, update }) {
+      firebase.firestore().doc(`users/sandbox/boards/${boardId}`).update(update)
     },
-    createItem({ state }, item) {
-      state.items.push(item)
-      state.currentBoardItems.push(item)
+    deleteBoard(_, boardId) {
+      firebase.firestore().doc(`users/sandbox/boards/${boardId}`).delete()
     },
-    deleteItem({ state }, itemId) {
-      const index = state.currentBoardItems.findIndex(it => it.id == itemId)
-
-      if (index != -1) {
-        Vue.delete(state.currentBoardItems, index)
-      }
+    createItem(_, item) {
+      item.createdAt = firebase.firestore.FieldValue.serverTimestamp()
+      firebase.firestore().collection(`users/sandbox/items`).add(item)
+    },
+    deleteItem(_, itemId) {
+      firebase.firestore().doc(`users/sandbox/items/${itemId}`).delete()
     }
   }
 })

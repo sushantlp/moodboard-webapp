@@ -13,8 +13,6 @@
     <router-view id="content" />
     <div v-if="modal" id="modal-mask">
       <div class="modal-container">
-        <button @click="$store.commit('setModal', '')">X</button>
-
         <component :is="modal.component" v-bind="modal.data"></component>
       </div>
     </div>

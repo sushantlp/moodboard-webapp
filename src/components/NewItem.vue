@@ -31,7 +31,7 @@ export default {
     };
   },
   methods: {
-    async saveChanges() {
+    saveChanges() {
       /*
           const item = {
           boardId: this.boardId,
@@ -54,8 +54,7 @@ export default {
         hostname: new URL(url).host
       };
 
-      await this.$store.dispatch("createItem", item);
-
+      this.$store.dispatch("createItem", item);
       this.$store.commit("setModal", "");
     }
   }

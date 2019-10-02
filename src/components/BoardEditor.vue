@@ -49,7 +49,7 @@ export default {
     }
   },
   methods: {
-    async saveChanges() {
+    saveChanges() {
       const { name, description } = this.form;
       const board = {
         name,
@@ -57,12 +57,12 @@ export default {
       };
 
       if (!this.board) {
-        await this.$store.dispatch("createBoard", {
+        this.$store.dispatch("createBoard", {
           id: faker.random.uuid(),
           ...board
         });
       } else {
-        await this.$store.dispatch("updateBoard", {
+        this.$store.dispatch("updateBoard", {
           boardId: this.board.id,
           update: board
         });
