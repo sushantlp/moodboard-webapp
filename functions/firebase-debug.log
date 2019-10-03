@@ -1,0 +1,46 @@
+[debug] [2019-10-03T16:08:28.186Z] ----------------------------------------------------------------------
+[debug] [2019-10-03T16:08:28.187Z] Command:       /usr/bin/node /home/cloubao/.npm/bin/firebase serve --only functions
+[debug] [2019-10-03T16:08:28.188Z] CLI Version:   7.4.0
+[debug] [2019-10-03T16:08:28.188Z] Platform:      linux
+[debug] [2019-10-03T16:08:28.188Z] Node Version:  v10.16.3
+[debug] [2019-10-03T16:08:28.188Z] Time:          Thu Oct 03 2019 12:08:28 GMT-0400 (Eastern Daylight Time)
+[debug] [2019-10-03T16:08:28.188Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2019-10-03T16:08:28.193Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-10-03T16:08:28.193Z] > authorizing via signed-in user
+[debug] [2019-10-03T16:08:28.193Z] [iam] checking project moodboard-mvp for permissions ["firebase.projects.get"]
+[debug] [2019-10-03T16:08:28.195Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/moodboard-mvp:testIamPermissions  
+
+[debug] [2019-10-03T16:08:28.815Z] <<< HTTP RESPONSE 200
+[debug] [2019-10-03T16:08:28.825Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/moodboard-mvp  
+ 
+[debug] [2019-10-03T16:08:29.210Z] <<< HTTP RESPONSE 200
+[warn] ⚠  Your requested "node" version "8" doesn't match your global version "10"
+[info] ✔  functions: Emulator started at http://localhost:5000
+[info] i  functions: Watching "/home/cloubao/dev/apps/bookmark/functions" for Cloud Functions...
+[debug] [2019-10-03T16:08:29.896Z] [runtime-status] Functions runtime initialized. {"cwd":"/home/cloubao/dev/apps/bookmark/functions","node_version":"10.16.3"}
+[debug] [2019-10-03T16:08:29.896Z] [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true} {}
+[debug] [2019-10-03T16:08:29.898Z] [runtime-status] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.6.0","resolution":"/home/cloubao/dev/apps/bookmark/functions/node_modules/firebase-admin/lib/index.js"}
+[debug] [2019-10-03T16:08:29.899Z] [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/home/cloubao/dev/apps/bookmark/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-10-03T16:08:29.900Z] [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/home/cloubao/dev/apps/bookmark/functions/node_modules/firebase-functions/lib/index.js"}
+[info] ✔  functions[backend]: http function initialized (http://localhost:5000/moodboard-mvp/us-central1/backend).
+[debug] [2019-10-03T16:10:57.211Z] Accepted request GET /moodboard-mvp/us-central1/backend/info?url=https://dribbble.com/shots/3466169-Bookmarks --> backend
+[debug] [2019-10-03T16:10:57.444Z] [runtime-status] Functions runtime initialized. {"cwd":"/home/cloubao/dev/apps/bookmark/functions","node_version":"10.16.3"}
+[info] i  functions: Beginning execution of "backend"
+[debug] [2019-10-03T16:10:57.446Z] [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true} {}
+[debug] [2019-10-03T16:10:57.449Z] [runtime-status] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.6.0","resolution":"/home/cloubao/dev/apps/bookmark/functions/node_modules/firebase-admin/lib/index.js"}
+[debug] [2019-10-03T16:10:57.449Z] [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/home/cloubao/dev/apps/bookmark/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-10-03T16:10:57.451Z] [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.2.0","resolution":"/home/cloubao/dev/apps/bookmark/functions/node_modules/firebase-functions/lib/index.js"}
+[debug] [2019-10-03T16:10:57.609Z] [runtime-status] Trigger "backend" has been found, beginning invocation! {}
+[debug] [2019-10-03T16:10:57.610Z] [runtime-status]  {"httpsTrigger":{},"name":"backend","entryPoint":"backend"}
+[debug] [2019-10-03T16:10:57.610Z] [runtime-status] Running backend in mode HTTPS {}
+[debug] [2019-10-03T16:10:57.615Z] {"socketPath":"/tmp/firebase_emulator_invocation_32256.sock"}
+[debug] [2019-10-03T16:10:57.617Z] [functions] Runtime ready! Sending request! {"socketPath":"/tmp/firebase_emulator_invocation_32256.sock"}
+[debug] [2019-10-03T16:10:57.624Z] [runtime-status] Ephemeral server used! {}
+[info] >  Creating new instance of browser
+[debug] [2019-10-03T16:10:57.630Z] [runtime-status] Ephemeral server survived. {}
+[info] >  targetcreated
+[info] >  Closing page
+[info] >  targetdestroyed
+[info] >  Closing chrome instance in 10 seconds
+[info] i  functions: Finished "backend" in ~4s

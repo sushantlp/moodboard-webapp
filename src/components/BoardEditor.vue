@@ -57,10 +57,7 @@ export default {
       };
 
       if (!this.board) {
-        this.$store.dispatch("createBoard", {
-          id: faker.random.uuid(),
-          ...board
-        });
+        this.$store.dispatch("createBoard", board);
       } else {
         this.$store.dispatch("updateBoard", {
           boardId: this.board.id,

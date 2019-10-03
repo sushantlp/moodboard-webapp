@@ -31,7 +31,7 @@ export default {
     };
   },
   methods: {
-    saveChanges() {
+    async saveChanges() {
       /*
           const item = {
           boardId: this.boardId,
@@ -44,16 +44,18 @@ export default {
         };
       */
       const { url } = this.form;
+      const info = await this.$store.dispatch("getUrlInfo", url);
+      console.log(info);
+
       const item = {
-        id: faker.random.uuid(),
         url,
         boardId: this.boardId,
-        title: faker.lorem.word(),
-        description: faker.lorem.sentence(),
-        image: faker.random.image(),
-        hostname: new URL(url).host
+        title: info.title || "",
+        description: info.description || "",
+        image: info.preview,
+        hostname: info.hostname
       };
-
+      
       this.$store.dispatch("createItem", item);
       this.$store.commit("setModal", "");
     }

@@ -5,6 +5,8 @@ import { vuexfireMutations, firestoreAction } from 'vuexfire'
 
 Vue.use(Vuex)
 
+const CLOUD_FUNCTIONS_URL = process.env.VUE_APP_CLOUD_FUNCTIONS_URL
+
 export default new Vuex.Store({
   state: {
     modal: "",
@@ -20,6 +22,11 @@ export default new Vuex.Store({
     ...vuexfireMutations
   },
   actions: {
+    getUrlInfo(_, url) {
+      return fetch(`${CLOUD_FUNCTIONS_URL}/backend/info?url=${url}`).then(response => {
+        return response.json()
+      })
+    },
     retrieveAllBoards: firestoreAction(({ bindFirestoreRef, state }) => {
       if (state.boards) {
         return
@@ -28,7 +35,7 @@ export default new Vuex.Store({
     }),
     displayBoardDetails: firestoreAction(async ({ bindFirestoreRef }, boardId) => {
       await bindFirestoreRef('currentBoard', firebase.firestore().doc(`users/${firebase.auth().currentUser.uid}/boards/${boardId}`))
-      return bindFirestoreRef('currentBoardItems', firebase.firestore().collection(`users/${firebase.auth().currentUser.uid}/items`)
+      await bindFirestoreRef('currentBoardItems', firebase.firestore().collection(`users/${firebase.auth().currentUser.uid}/items`)
         .where('boardId', '==', boardId)
         .orderBy('createdAt', 'desc'))
     }),

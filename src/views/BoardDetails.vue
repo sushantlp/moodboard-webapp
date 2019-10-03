@@ -112,6 +112,7 @@ export default {
           background: #dedede;
           position: relative;
           border-radius: 4px;
+          box-shadow: 1px 1px 3px #48484848;
 
           img {
             width: 100%;
