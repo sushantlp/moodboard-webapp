@@ -1,6 +1,7 @@
 <template>
   <div class="board-editor">
-    <form @submit.prevent="saveChanges">
+    <div v-if="gettingInfo">Saving link. Please wait...</div>
+    <form v-else @submit.prevent="saveChanges">
       <div class="input-wrapper">
         <input
           v-model="form.url"
@@ -25,6 +26,7 @@ export default {
   props: ["boardId"],
   data() {
     return {
+      gettingInfo: false,
       form: {
         url: ""
       }
@@ -32,17 +34,8 @@ export default {
   },
   methods: {
     async saveChanges() {
-      /*
-          const item = {
-          boardId: this.boardId,
-          id: faker.random.uuid(),
-          title: faker.lorem.words(),
-          description: faker.lorem.sentence(),
-          image: faker.random.image(),
-          url: url,
-          hostname: new URL(url).host
-        };
-      */
+      this.gettingInfo = true;
+
       const { url } = this.form;
       const info = await this.$store.dispatch("getUrlInfo", url);
       console.log(info);
@@ -55,7 +48,7 @@ export default {
         image: info.preview,
         hostname: info.hostname
       };
-      
+
       this.$store.dispatch("createItem", item);
       this.$store.commit("setModal", "");
     }
