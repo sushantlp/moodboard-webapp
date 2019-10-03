@@ -1,4 +1,13 @@
-# bookmark
+# Moodboard.
+Minimalist Bookmark Manager built with Vue.js and Firebase.
+
+![''](https://i.ibb.co/J3tVtq9/screenshot.png)
+
+## Stack
+Vue.js, Firebase, Puppeteer
+
+## Demo
+[Click here](https://moodboard-mvp.web.app)
 
 ## Project setup
 ```
