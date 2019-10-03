@@ -9,7 +9,6 @@
   },
   "dependencies": {
     "core-js": "^2.6.5",
-    "faker": "^4.1.0",
     "firebase": "^7.0.0",
     "vue": "^2.6.10",
     "vue-router": "^3.0.3",

@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import faker from "faker";
+
 
 export default {
   computed: {
