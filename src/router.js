@@ -6,6 +6,7 @@ import Settings from './views/Settings.vue'
 import Home from './views/Home.vue'
 import Login from './views/Login.vue'
 import SignUp from './views/SignUp.vue'
+import LandingPage from './views/LandingPage.vue'
 
 import firebase from 'firebase/app'
 
@@ -17,6 +18,10 @@ const router = new Router({
   routes: [
     {
       path: '/',
+      component: LandingPage
+    },
+    {
+      path: '/app',
       component: Home,
       meta: {
         requiresAuth: true
@@ -24,7 +29,7 @@ const router = new Router({
       children: [
         {
           path: "",
-          redirect: "/boards"
+          redirect: "boards"
         },
         {
           path: 'boards',
@@ -68,7 +73,10 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
-  if (to.matched.some(it => it.meta.requiresAuth)) {
+  if (firebase.auth().currentUser && to.fullPath == "/") {
+    next("/app")
+  }
+  else if (to.matched.some(it => it.meta.requiresAuth)) {
     if (firebase.auth().currentUser) {
       next()
     }
@@ -77,7 +85,7 @@ router.beforeEach((to, from, next) => {
     }
   }
   else if (to.matched.some(it => it.meta.authPage) && firebase.auth().currentUser) {
-    next("/")
+    next("/app")
   }
   else {
     next()

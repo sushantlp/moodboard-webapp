@@ -16,7 +16,7 @@ export default {
     async signUpWithGoogle() {
       var provider = new this.$firebase.auth.GoogleAuthProvider();
       await this.$auth.signInWithPopup(provider);
-      this.$router.push("/");
+      this.$router.push("/app");
     }
   }
 };

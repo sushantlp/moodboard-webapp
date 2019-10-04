@@ -43,6 +43,15 @@ html {
   box-sizing: border-box;
 }
 
+a {
+  font-weight: bold;
+  color: #2c3e50;
+  
+  &:hover {
+    color: #42b983;
+  }
+}
+
 .input-wrapper {
   .input {
     width: 100%;

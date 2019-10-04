@@ -12,7 +12,7 @@
     </div>
     <div class="boards-grid">
       <router-link
-        :to="`/boards/${board.id}`"
+        :to="`/app/boards/${board.id}`"
         tag="div"
         class="board"
         v-for="board in boards"

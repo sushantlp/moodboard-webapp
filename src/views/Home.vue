@@ -1,13 +1,13 @@
 <template>
   <div id="home">
     <div id="header">
-      <router-link tag="span" to="/" id="app-logo">
+      <router-link tag="span" to="/app" id="app-logo">
         <span>MOOD</span>
         <strong>BOARD</strong>
       </router-link>
       <div id="nav">
-        <router-link to="/boards">Boards</router-link>
-        <router-link to="/settings">Settings</router-link>
+        <router-link to="/app/boards">Boards</router-link>
+        <router-link to="/app/settings">Settings</router-link>
         <button @click="signOut" class="button">Sign out</button>
       </div>
     </div>
