@@ -5,7 +5,19 @@
         <h1 id="app-name">Moodboard</h1>
         <h2 id="app-description">The Open Source Visual Bookmark Manager</h2>
         <p>A simple, clean and lightweight app to organize your favorite content from the Internet.</p>
-        <router-link class="button" tag="button" to="/app">Try it for Free</router-link>
+        <router-link class="button mb-16px" tag="button" to="/app">Try it for Free</router-link>
+        <a
+          href="https://www.producthunt.com/posts/moodboard-2?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-moodboard-2"
+          target="_blank"
+        >
+          <img
+            src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=170158&theme=light"
+            alt="Moodboard - The Open Source Visual Bookmark Manager | Product Hunt Embed"
+            style="width: 250px; height: 54px;"
+            width="250px"
+            height="54px"
+          />
+        </a>
       </div>
       <img id="screenshot" :src="require('@/assets/screenshot1.png')" alt />
     </div>
